@@ -22,10 +22,11 @@ style.type = 'text/css';
 if (document.URL.indexOf("http://stackoverflow.com") == 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body #content{background-color: #8ACA9A!important;} body .tagged-interesting{background-color: #8ACA9A!important;}";
 }
+else if (document.URL.indexOf("https://vi.stackexchange.com") == 0) {
+    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body #content{background-color: #8ACA9A!important;} body .container{background-color: #8ACA9A!important;}";
+}
 else {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;}";
 }
 
 document.getElementsByTagName("head")[0].appendChild( style );
-
-
