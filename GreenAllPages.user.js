@@ -26,7 +26,10 @@ else if (document.URL.indexOf("https://vi.stackexchange.com") == 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body #content{background-color: #8ACA9A!important;} body .container{background-color: #8ACA9A!important;}";
 }
 else if (document.URL.indexOf("https://mail.google.com") == 0) {
-    style.innerHTML = "html, body .Bu{background-color: #8ACA9A!important;line-height: 1.1em;font-size:30px;font-family: ff-tisa-web-pro,serif;} body .hP{background-color: yellow} h3{background-color: gray}";
+    style.innerHTML = "html, body .Bu{background-color: #8ACA9A!important;line-height: 1.1em;font-size:30px;font-family: verdana,serif;} body .hP{background-color: yellow} h3{background-color: gray}";
+}
+else if (document.URL.indexOf("https://www.evernote.com") == 0) {
+    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.GAOIOH2DIGB{background: #9ACA9A;}";
 }
 else {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;}";
