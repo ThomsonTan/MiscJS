@@ -1,0 +1,47 @@
+
+aS /b /x ${/v:SearchAddr} ${$arg1}
+.catch {
+    .printf "Address: ${SearchAddr}\n"
+    r $t19=1000
+    .foreach (tok {lma ${SearchAddr}}) {
+        .if $scmp("${tok}", "start") == 0 {
+            r $t19=0
+        } 
+        .elsif @$t19 == 4 {
+            r $t18=${tok};
+        }
+        .elsif @$t19 == 6 {
+            aS ${/v:SearchImageName} ${tok};
+            .break;
+        }
+        r $t19=@$t19+1
+    }
+
+    r $t17 = ${SearchAddr} - $t18
+    r $t19=1000
+    .foreach (tok {!dh @$t18}) {
+        .if $scmp("${tok}", "SECTION") == 0 {
+            r $t19=0
+        }
+        .elsif @$t19 == 1 and $scmp("${tok}", "HEADER") != 0 {
+            r $t19 = 1000
+        }
+        .elsif @$t19 == 3 {
+            aS ${/v:SectionName} ${tok}
+        }
+        .elsif @$t19 == 5 {
+            r $t18 = ${tok}
+        }
+        .elsif @$t19 == 8 {
+            .if @$t17 < ${tok} + @$t18 {
+                .printf "Image!Section!Rva: ${SearchImageName}!${SectionName}!%x\n", @$t17
+                .break;
+            }
+        }
+        r $t19 = @$t19 + 1
+    }
+
+}
+
+ad SearchImageName
+ad SectionName
