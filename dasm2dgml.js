@@ -44,13 +44,14 @@ var map=function(f,v){
       continue;
     if(strSourceLine.match(/.*:$/))
     {
-      blk = new CExtendedBasicBlock(strSourceLine.slice(0, -1));
+      var blockName = strSourceLine.replace(/\[.+@\s+/, '').replace(/\]/, '');
+      blk = new CExtendedBasicBlock(blockName);
       EBB.push(blk);
     }
     else
     {
       blk.Address = blk.Address || strSourceLine.match(/^\S+\s+[^\s]+/)[0].replace(/[\S]+\s+/, '');
-      blk.Code.push(strSourceLine.replace(/[^\s]*\s+/, '').replace(/[^\s]*\s+/, ''));
+      blk.Code.push(strSourceLine.replace(/[^\s]+\s+/, '').replace(/[^\s]+\s+[^\s]+\s+/, ''));
     }
   }
 })();
