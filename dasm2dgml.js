@@ -51,7 +51,15 @@ var map=function(f,v){
     else
     {
       blk.Address = blk.Address || strSourceLine.match(/^\S+\s+[^\s]+/)[0].replace(/[\S]+\s+/, '');
-      blk.Code.push(strSourceLine.replace(/[^\s]+\s+/, '').replace(/[^\s]+\s+[^\s]+\s+/, ''));
+      var filteredSourceLine = strSourceLine.replace(/[^\s]+\s+/, '').replace(/[^\s]+\s+[^\s]+\s+/, '');
+      filteredSourceLine = filteredSourceLine.replace(/^call\s/, '>call'); // mark call inst
+      var tokens = filteredSourceLine.match(/\S+/g);
+      var instLen = tokens[0].length;
+      if (instLen < 8 && tokens.length > 1) {
+          var alignSpaces = new Array(9 - instLen).join(' ');
+          filteredSourceLine = filteredSourceLine.replace(/^(\S+)\s+/, '\$1'+alignSpaces);
+      }
+      blk.Code.push(filteredSourceLine);
     }
   }
 })();
@@ -63,6 +71,7 @@ for(var i = 1; i < EBB.length; i++)
   EBB[i].Previous.Next = EBB[i];
 }
 
+WScript.Echo('<?xml version="1.0" encoding="utf-8"?>');
 WScript.Echo('<DirectedGraph Background="#8ACA9A" GraphDirection="TopToBottom" xmlns="http://schemas.microsoft.com/vs/2009/dgml">');
 WScript.Echo('  <Nodes>');
 map(function(blk){
@@ -81,7 +90,7 @@ map(function(blk){
       var idx = instruction.indexOf(x.Address);
       idx = idx >= 0 ? instruction.charAt(idx + x.Name.length) : -1;
       if(idx == '' || idx == ' ')
-        WScript.Echo('    <Link Source="' + hypertext(blk.Name) + '" Target="' + hypertext(x.Name) + '" />');
+        WScript.Echo('    <Link Category="Jmp" Source="' + hypertext(blk.Name) + '" Target="' + hypertext(x.Name) + '" />');
     }, EBB);
   }, blk.Code);
   if(blk.Next && !(blk.Code[blk.Code.length - 1].match(/^[^\s]+/)[0] in {jmp: 0, ret: 0}))
@@ -99,7 +108,12 @@ WScript.Echo('    </Style>');
 WScript.Echo('    <Style TargetType="Link">');
 WScript.Echo('        <Condition Expression="HasCategory(\'FallThrough\')" />');
 WScript.Echo('        <Setter Property="Background" Value="Red" />');
+WScript.Echo('        <Setter Property="Stroke" Value="Black" />');
+WScript.Echo('    </Style>');
+WScript.Echo('    <Style TargetType="Link">');
+WScript.Echo('        <Condition Expression="HasCategory(\'Jmp\')" />');
 WScript.Echo('        <Setter Property="Stroke" Value="Red" />');
+WScript.Echo('        <Setter Property="StrokeDashArray" Value="3 3" />');
 WScript.Echo('    </Style>');
 WScript.Echo('  </Styles>');
 WScript.Echo('</DirectedGraph>');
