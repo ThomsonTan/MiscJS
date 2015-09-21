@@ -34,7 +34,8 @@ aS /b /x ${/v:SearchAddr} ${$arg1}
         }
         .elsif @$t19 == 8 {
             .if @$t17 < ${tok} + @$t18 {
-                .printf "Image!Section!Rva: ${SearchImageName}!${SectionName}!%x\n", @$t17
+                r $t16 = @$t17 - ${tok}
+                .printf "Image:${SearchImageName}\nSection:${SectionName}\nRva:%x\nSecRva:%x\n", @$t17, @$t16
                 .break;
             }
         }
