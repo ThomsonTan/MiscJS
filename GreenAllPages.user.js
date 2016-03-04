@@ -31,6 +31,9 @@ else if (document.URL.indexOf("https://mail.google.com") == 0) {
 else if (document.URL.indexOf("https://www.evernote.com") == 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.GAOIOH2DIGB{background: #9ACA9A;}";
 }
+else if (document.URL.indexOf("https://github.com") == 0) {
+    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.comment{background: #8ACA9A;}";
+}
 else {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;}";
 }
