@@ -18,6 +18,7 @@
 var style = document.createElement('style');
 
 style.type = 'text/css';
+var mainFont = "Open Sans";
 
 if (document.URL.indexOf("http://stackoverflow.com") == 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body #content{background-color: #8ACA9A!important;} body .tagged-interesting{background-color: #8ACA9A!important;}";
@@ -32,7 +33,14 @@ else if (document.URL.indexOf("https://www.evernote.com") == 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.GAOIOH2DIGB{background: #9ACA9A;}";
 }
 else if (document.URL.indexOf("https://github.com") == 0) {
-    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.comment{background: #8ACA9A;}";
+    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.comment{background-color: #8ACA9A!important}";
+    mainFont = "Consolas";
+}
+else if (document.URL.indexOf("https://en.wikipedia.org") == 0) {
+    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.mw-content-ltr{background-color: #8ACA9A!important;} body div.toc{background-color: #8ACA9A!important;} ";
+}
+else if (document.URL.indexOf("https://gitter.im") == 0) {
+    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.chat-container{background-color: #8ACA9A!important;} body div.burstStart{background-color: #8ACA9A!important;} ";
 }
 else {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;}";
@@ -45,12 +53,12 @@ document.getElementsByTagName("head")[0].appendChild( style );
 	"",
 	"*",
 	"{",
-	"    font-family: \"Open Sans\", \"Microsoft YaHei\", sans-serif;",
+	"    font-family: \"" + mainFont + "\", \"Microsoft YaHei\", sans-serif;",
 	"}",
 	"",
 	"h1, h2, h3, h4, h5, h6, h1 *, h2 *, h3 *, h4 *, h5 *, h6 *",
 	"{",
-	"    font-family: \"Open Sans\", \"Roboto\", sans-serif;",
+	"    font-family: \"" + mainFont + "\", \"Roboto\", sans-serif;",
 	"    text-rendering: optimizeLegibility;",
 	"}",
 	"",
