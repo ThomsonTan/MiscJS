@@ -18,28 +18,32 @@
 var style = document.createElement('style');
 
 style.type = 'text/css';
+
 var mainFont = "Open Sans";
 
-if (document.URL.indexOf("http://stackoverflow.com") == 0) {
+if (document.URL.indexOf("http://stackoverflow.com") === 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body #content{background-color: #8ACA9A!important;} body .tagged-interesting{background-color: #8ACA9A!important;}";
 }
-else if (document.URL.indexOf("https://vi.stackexchange.com") == 0) {
+else if (document.URL.indexOf("https://vi.stackexchange.com") === 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body #content{background-color: #8ACA9A!important;} body .container{background-color: #8ACA9A!important;}";
 }
-else if (document.URL.indexOf("https://mail.google.com") == 0) {
+else if (document.URL.indexOf("https://mail.google.com") === 0) {
     style.innerHTML = "html, body .Bu{background-color: #8ACA9A!important;line-height: 1.1em;font-size:30px;font-family: verdana,serif;} body .hP{background-color: yellow} h3{background-color: gray}";
 }
-else if (document.URL.indexOf("https://www.evernote.com") == 0) {
+else if (document.URL.indexOf("https://www.evernote.com") === 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.GAOIOH2DIGB{background: #9ACA9A;}";
 }
-else if (document.URL.indexOf("https://github.com") == 0) {
+else if (document.URL.indexOf("https://github.com") === 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.comment{background-color: #8ACA9A!important}";
-    mainFont = "Consolas";
+    // mainFont = "Consolas";
 }
-else if (document.URL.indexOf("https://en.wikipedia.org") == 0) {
+else if (document.URL.indexOf("https://en.wikipedia.org") === 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.mw-content-ltr{background-color: #8ACA9A!important;} body div.toc{background-color: #8ACA9A!important;} ";
 }
-else if (document.URL.indexOf("https://gitter.im") == 0) {
+else if (document.URL.indexOf("http://zhuanlan.zhihu.com") === 0) {
+    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.editable{background-color: #8ACA9A!important;}";
+}
+else if (document.URL.indexOf("https://gitter.im") === 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.chat-container{background-color: #8ACA9A!important;} body div.burstStart{background-color: #8ACA9A!important;} ";
 }
 else {
@@ -84,7 +88,7 @@ if (typeof GM_addStyle != "undefined") {
 	node.appendChild(document.createTextNode(css));
 	var heads = document.getElementsByTagName("head");
 	if (heads.length > 0) {
-		heads[0].appendChild(node); 
+		heads[0].appendChild(node);
 	} else {
 		// no head yet, stick it whereever
 		document.documentElement.appendChild(node);
