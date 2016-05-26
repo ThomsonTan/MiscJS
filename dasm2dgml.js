@@ -61,7 +61,7 @@ var map=function(f,v){
     else
     {
         // strip line number at first, assume line number starts with 2 spaces
-        if (origSourceLine.match(/^\s\s\d/))
+        if (origSourceLine.match(/^\s+\d/))
         // if (!strSourceLine.match(/^\s*0/))
         {
             strSourceLine = strSourceLine.replace(/\s*\S+\s*/, '');
@@ -109,7 +109,8 @@ map(function(blk){
   map(function(instruction){
     content += '&#xD;&#xA;' + hypertext(instruction);
   }, blk.Code);
-  WScript.Echo('    <Node Id="' + hypertext(blk.Name) + '" Label="' + content + '" />');
+  var setRetBlockColor = blk.Code[blk.Code.length - 1].match(/^ret/) ? "yellow" : ""; 
+  WScript.Echo('    <Node Background="' + setRetBlockColor + '" Id="' + hypertext(blk.Name) + '" Label="' + content + '" />');
 }, EBB);
 WScript.Echo('  </Nodes>');
 WScript.Echo('  <Links>');
@@ -132,7 +133,7 @@ WScript.Echo('  <Styles>');
 WScript.Echo('    <Style TargetType="Node">');
 WScript.Echo('      <Setter Property="FontFamily" Value="Consolas" />');
 WScript.Echo('      <Setter Property="FontSize" Value="11" />');
-WScript.Echo('      <Setter Property="Background" Value="White" />');
+// WScript.Echo('      <Setter Property="Background" Value="White" />');
 WScript.Echo('      <Setter Property="NodeRadius" Value="2" />');
 WScript.Echo('    </Style>');
 WScript.Echo('    <Style TargetType="Link">');
