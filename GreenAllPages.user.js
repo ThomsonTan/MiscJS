@@ -47,7 +47,7 @@ else if (document.URL.indexOf("https://gitter.im") === 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.chat-container{background-color: #8ACA9A!important;} body div.burstStart{background-color: #8ACA9A!important;} ";
 }
 else {
-    style.innerHTML = "html, body {background-color: #8ACA9A!important;}";
+    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body #g{color: blue!important;}";
 }
 
 if (document.URL.indexOf("wincode") === 7) {
