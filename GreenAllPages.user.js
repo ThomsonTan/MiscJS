@@ -50,6 +50,10 @@ else {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;}";
 }
 
+if (document.URL.indexOf("wincode") === 7) {
+    mainFont = "Consolas";
+}
+
 document.getElementsByTagName("head")[0].appendChild( style );
 
 (function() {var css = [
