@@ -53,10 +53,23 @@ else {
 if (document.URL.indexOf("wincode") === 7) {
     mainFont = "Consolas";
 
-        var s = document.createElement('script');
+    var s = document.createElement('script');
 
     s.type = 'text/javascript';
-    s.innerText = "document.addEventListener('keydown', function (e){var key = e.charCode || e.keyCode || 0; var hasShift = e.shiftKey; var hasControl = e.ctrlKey; var hasAlt = e.altKey; if (key == 70 && !hasShift && !hasControl && !hasAlt /*'n'*/) {scrollToNextResult(); } else if (key == 69 && !hasShift && !hasControl && !hasAlt /*'p'*/) {scrollToPreviousResult(); } });";
+    s.innerText = "document.addEventListener('keydown', " +
+        "function (e){" +
+            "var key = e.charCode || e.keyCode || 0;" +
+            "var hasShift = e.shiftKey; " +
+            "var hasControl = e.ctrlKey; " +
+            "var hasAlt = e.altKey;" +
+            "if (key == 70 && !hasShift && !hasControl && !hasAlt /*'n'*/) {" +
+                "scrollToNextResult();" +
+            "} else if (key == 69 && !hasShift && !hasControl && !hasAlt /*'p'*/) {" +
+                "scrollToPreviousResult();" +
+            "} else if (key == 65 && !hasShift && !hasControl && !hasAlt /*'a'*/) {" +
+                "window.gCurrentlyViewed = 1; " +
+                "scrollToPreviousResult();" +
+            "}});";
 
     document.getElementsByTagName('head')[0].appendChild(s);
 }
