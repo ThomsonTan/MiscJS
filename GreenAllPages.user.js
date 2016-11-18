@@ -37,7 +37,7 @@ else if (document.URL.indexOf("https://github.com") === 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.comment{background-color: #8ACA9A!important}";
     // mainFont = "Consolas";
 }
-else if (document.URL.indexOf("https://en.wikipedia.org") === 0) {
+else if (document.URL.indexOf("https://en.wikipedia.org" || document.URL.indexOf("https://simple.wikipedia.org") === 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.mw-content-ltr{background-color: #8ACA9A!important;} body div.toc{background-color: #8ACA9A!important;} ";
 }
 else if (document.URL.indexOf("http://zhuanlan.zhihu.com") === 0) {
