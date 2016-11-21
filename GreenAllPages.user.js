@@ -20,6 +20,7 @@ var style = document.createElement('style');
 style.type = 'text/css';
 
 var mainFont = "Open Sans";
+var cssBg = false;
 
 if (document.URL.indexOf("http://stackoverflow.com") === 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body #content{background-color: #8ACA9A!important;} body .tagged-interesting{background-color: #8ACA9A!important;}";
@@ -46,8 +47,16 @@ else if (document.URL.indexOf("http://zhuanlan.zhihu.com") === 0) {
 else if (document.URL.indexOf("https://gitter.im") === 0) {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.chat-container{background-color: #8ACA9A!important;} body div.burstStart{background-color: #8ACA9A!important;} ";
 }
+else if (document.URL.indexOf("https://microsoft.sharepoint.com") === 0) {
+    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.WACInteractiveView{background-color: #8ACA9A!important;}";
+    cssBg = true;
+}
 else {
     style.innerHTML = "html, body {background-color: #8ACA9A!important;} body #g{color: blue!important; font-weight: normal!important} body #f{color: #f92672!important; font-weight: normal!important}";
+}
+
+if(document.URL.indexOf("https://reviews.llvm.org") === 0) {
+    mainFont = "Consolas";
 }
 
 if (document.URL.indexOf("wincode") === 7) {
@@ -78,16 +87,17 @@ document.getElementsByTagName("head")[0].appendChild( style );
 
 (function() {var css = [
 	"@namespace html url(http://www.w3.org/1999/xhtml);",
-	"",
 	"*",
 	"{",
 	"    font-family: \"" + mainFont + "\", \"Microsoft YaHei\", sans-serif;",
+    cssBg ? "background-color: #8ACA9A!important;" : "",
 	"}",
 	"",
 	"h1, h2, h3, h4, h5, h6, h1 *, h2 *, h3 *, h4 *, h5 *, h6 *",
 	"{",
 	"    font-family: \"" + mainFont + "\", \"Roboto\", sans-serif;",
 	"    text-rendering: optimizeLegibility;",
+    cssBg ? "background-color: #8ACA9A!important;" : "",
 	"}",
 	"",
 	"h1, h1 *",
