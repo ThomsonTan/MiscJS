@@ -1,3 +1,4 @@
+// register this in chrome://extensions -> enable dev mode -> load unpacked extension
 {
   "name": "Do",
   "version" : "1.0.0.1",
