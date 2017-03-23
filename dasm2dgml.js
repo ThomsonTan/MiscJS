@@ -44,7 +44,7 @@ var map=function(f,v){
     var strSourceLine = origSourceLine.replace(/(^\s+)|(\s+$)/g, '');
 
     var prevEmptyLine;
-    if(!strSourceLine || strSourceLine.match(/^Flow/) || strSourceLine.match(/^Debugger\.@/))
+    if(!strSourceLine || strSourceLine.match(/^Flow/) || strSourceLine.match(/^Debugger\./))
     {
         prevEmptyLine = true;
         continue;
