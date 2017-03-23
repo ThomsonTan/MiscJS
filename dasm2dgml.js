@@ -39,27 +39,57 @@ var map=function(f,v){
   {
     if(WScript.StdIn.AtEndOfStream)
       break;
-    var strSourceLine = WScript.StdIn.ReadLine().replace(/(^\s+)|(\s+$)/g, '');
-    if(!strSourceLine)
-      continue;
+    var origSourceLine = WScript.StdIn.ReadLine();
+
+    var strSourceLine = origSourceLine.replace(/(^\s+)|(\s+$)/g, '');
+
+    var prevEmptyLine;
+    if(!strSourceLine || strSourceLine.match(/^Flow/) || strSourceLine.match(/^Debugger\.@/))
+    {
+        prevEmptyLine = true;
+        continue;
+    }
+
     if(strSourceLine.match(/.*:$/))
     {
-      var blockName = strSourceLine.replace(/\[.+@\s+/, '').replace(/\]/, '');
-      blk = new CExtendedBasicBlock(blockName);
-      EBB.push(blk);
+        var blockName = strSourceLine.replace(/\[.+@\s+/, '').replace(/\]/, '');
+        blk = new CExtendedBasicBlock(blockName);
+        EBB.push(blk);
+
+        prevEmptyLine = false;
     }
     else
     {
-      blk.Address = blk.Address || strSourceLine.match(/^\S+\s+[^\s]+/)[0].replace(/[\S]+\s+/, '');
-      var filteredSourceLine = strSourceLine.replace(/[^\s]+\s+/, '').replace(/[^\s]+\s+[^\s]+\s+/, '');
-      filteredSourceLine = filteredSourceLine.replace(/^call\s/, '>call'); // mark call inst
-      var tokens = filteredSourceLine.match(/\S+/g);
-      var instLen = tokens[0].length;
-      if (instLen < 8 && tokens.length > 1) {
-          var alignSpaces = new Array(9 - instLen).join(' ');
-          filteredSourceLine = filteredSourceLine.replace(/^(\S+)\s+/, '\$1'+alignSpaces);
-      }
-      blk.Code.push(filteredSourceLine);
+        // strip line number at first, assume line number starts with 2 spaces
+        if (origSourceLine.match(/^\s+\d/))
+        // if (!strSourceLine.match(/^\s*0/))
+        {
+            strSourceLine = strSourceLine.replace(/\s*\S+\s*/, '');
+        }
+        else
+        {
+            strSourceLine = strSourceLine.replace(/^\s*/, '');
+        }
+
+        if (prevEmptyLine)
+        {
+            var blockName = strSourceLine.match(/^\S+/)[0];
+            blk = new CExtendedBasicBlock(blockName);
+            EBB.push(blk);
+        }
+        prevEmptyLine = false;
+
+        var headAddress = strSourceLine.match(/^\S+/)[0];
+        blk.Address = blk.Address || headAddress;
+        var filteredSourceLine = strSourceLine.replace(/^\S+\s+\S+\s+/, '');
+        filteredSourceLine = filteredSourceLine.replace(/^call\s/, '>call'); // mark call inst
+        var tokens = filteredSourceLine.match(/\S+/g);
+        var instLen = tokens[0].length;
+        if (instLen < 8 && tokens.length > 1) {
+            var alignSpaces = new Array(9 - instLen).join(' ');
+            filteredSourceLine = filteredSourceLine.replace(/^(\S+)\s+/, '\$1'+alignSpaces);
+        }
+        blk.Code.push(filteredSourceLine);
     }
   }
 })();
@@ -79,7 +109,8 @@ map(function(blk){
   map(function(instruction){
     content += '&#xD;&#xA;' + hypertext(instruction);
   }, blk.Code);
-  WScript.Echo('    <Node Id="' + hypertext(blk.Name) + '" Label="' + content + '" />');
+  var setRetBlockColor = blk.Code[blk.Code.length - 1].match(/^ret/) ? "yellow" : ""; 
+  WScript.Echo('    <Node Background="' + setRetBlockColor + '" Id="' + hypertext(blk.Name) + '" Label="' + content + '" />');
 }, EBB);
 WScript.Echo('  </Nodes>');
 WScript.Echo('  <Links>');
@@ -102,7 +133,7 @@ WScript.Echo('  <Styles>');
 WScript.Echo('    <Style TargetType="Node">');
 WScript.Echo('      <Setter Property="FontFamily" Value="Consolas" />');
 WScript.Echo('      <Setter Property="FontSize" Value="11" />');
-WScript.Echo('      <Setter Property="Background" Value="White" />');
+// WScript.Echo('      <Setter Property="Background" Value="White" />');
 WScript.Echo('      <Setter Property="NodeRadius" Value="2" />');
 WScript.Echo('    </Style>');
 WScript.Echo('    <Style TargetType="Link">');
