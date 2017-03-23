@@ -15,6 +15,8 @@
 
 // document.bgColor = '#f4eed9';
 
+var defaultColor = "#68BB7D"; // 8A9ACA
+
 var style = document.createElement('style');
 
 style.type = 'text/css';
@@ -22,37 +24,52 @@ style.type = 'text/css';
 var mainFont = "Open Sans";
 var cssBg = false;
 
+function ExcludeStyle() {
+    if (document.URL.indexOf("https://microsoft.visualstudio.com") === 0)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+if (!ExcludeStyle()) {
+
 if (document.URL.indexOf("http://stackoverflow.com") === 0) {
-    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body #content{background-color: #8ACA9A!important;} body .tagged-interesting{background-color: #8ACA9A!important;}";
+    style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body #content{background-color: " + defaultColor + "!important;} body .tagged-interesting{background-color: " + defaultColor + "!important;}";
 }
 else if (document.URL.indexOf("https://vi.stackexchange.com") === 0) {
-    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body #content{background-color: #8ACA9A!important;} body .container{background-color: #8ACA9A!important;}";
+    style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body #content{background-color: " + defaultColor + "!important;} body .container{background-color: " + defaultColor + "!important;}";
 }
 else if (document.URL.indexOf("https://mail.google.com") === 0) {
-    style.innerHTML = "html, body .Bu{background-color: #8ACA9A!important;line-height: 1.1em;font-size:30px;font-family: verdana,serif;} body .hP{background-color: yellow} h3{background-color: gray}";
+    style.innerHTML = "html, body .Bu{background-color: " + defaultColor + "!important;line-height: 1.1em;font-size:30px;font-family: verdana,serif;} body .hP{background-color: yellow} h3{background-color: gray}";
 }
 else if (document.URL.indexOf("https://www.evernote.com") === 0) {
-    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.GAOIOH2DIGB{background: #9ACA9A;}";
+    style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body div.GAOIOH2DIGB{background: #9ACA9A;}";
 }
 else if (document.URL.indexOf("https://github.com") === 0) {
-    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.comment{background-color: #8ACA9A!important}";
+    style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body div.comment{background-color: " + defaultColor + "!important}";
     // mainFont = "Consolas";
 }
 else if (document.URL.indexOf("https://en.wikipedia.org") === 0 || document.URL.indexOf("https://simple.wikipedia.org") === 0) {
-    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.mw-content-ltr{background-color: #8ACA9A!important;} body div.toc{background-color: #8ACA9A!important;} ";
+    style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body div.mw-content-ltr{background-color: " + defaultColor + "!important;} body div.toc{background-color: " + defaultColor + "!important;} ";
 }
 else if (document.URL.indexOf("http://zhuanlan.zhihu.com") === 0) {
-    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.editable{background-color: #8ACA9A!important;}";
+    style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body div.editable{background-color: " + defaultColor + "!important;}";
+}
+else if (document.URL.indexOf("https://www.zhihu.com") === 0) {
+    style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body div.Card{background-color: " + defaultColor + "!important;} body div.ContentItem-actions{background-color: #7ABA8A!important;}" +
+        " body div.PageHeader{background-color: #7ABA8A!important;} body .Sticky{background-color: #7ABA8A!important;} body div.QuestionHeader{background-color: #7ABA8A!important;} body div.QuestionHeader-footer{background-color: #82C292!important;}";
 }
 else if (document.URL.indexOf("https://gitter.im") === 0) {
-    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.chat-container{background-color: #8ACA9A!important;} body div.burstStart{background-color: #8ACA9A!important;} ";
+    style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body div.chat-container{background-color: " + defaultColor + "!important;} body div.burstStart{background-color: " + defaultColor + "!important;} ";
 }
 else if (document.URL.indexOf("https://microsoft.sharepoint.com") === 0) {
-    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body div.WACInteractiveView{background-color: #8ACA9A!important;}";
+    style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body div.WACInteractiveView{background-color: " + defaultColor + "!important;}";
     cssBg = true;
 }
 else {
-    style.innerHTML = "html, body {background-color: #8ACA9A!important;} body #g{color: blue!important; font-weight: normal!important} body #f{color: #f92672!important; font-weight: normal!important}";
+    style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body #g{color: blue!important; font-weight: normal!important} body #f{color: #f92672!important; font-weight: normal!important}";
 }
 
 if(document.URL.indexOf("https://reviews.llvm.org") === 0) {
@@ -61,26 +78,6 @@ if(document.URL.indexOf("https://reviews.llvm.org") === 0) {
 
 if (document.URL.indexOf("wincode") === 7) {
     mainFont = "Consolas";
-
-    var s = document.createElement('script');
-
-    s.type = 'text/javascript';
-    s.innerText = "document.addEventListener('keydown', " +
-        "function (e){" +
-            "var key = e.charCode || e.keyCode || 0;" +
-            "var hasShift = e.shiftKey; " +
-            "var hasControl = e.ctrlKey; " +
-            "var hasAlt = e.altKey;" +
-            "if (key == 70 && !hasShift && !hasControl && !hasAlt /*'n'*/) {" +
-                "scrollToNextResult();" +
-            "} else if (key == 69 && !hasShift && !hasControl && !hasAlt /*'p'*/) {" +
-                "scrollToPreviousResult();" +
-            "} else if (key == 65 && !hasShift && !hasControl && !hasAlt /*'a'*/) {" +
-                "window.gCurrentlyViewed = 1; " +
-                "scrollToPreviousResult();" +
-            "}});";
-
-    document.getElementsByTagName('head')[0].appendChild(s);
 }
 
 document.getElementsByTagName("head")[0].appendChild( style );
@@ -129,3 +126,5 @@ if (typeof GM_addStyle != "undefined") {
 	}
 }
 })();
+
+}
