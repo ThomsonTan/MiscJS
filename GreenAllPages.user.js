@@ -24,7 +24,7 @@ style.type = 'text/css';
 var mainFont = "Open Sans";
 var cssBg = false;
 
-function ExcludeStyle() {
+function ExcludeFullStyle() {
     if (document.URL.indexOf("https://microsoft.visualstudio.com") === 0)
     {
         return true;
@@ -33,7 +33,16 @@ function ExcludeStyle() {
     return false;
 }
 
-if (!ExcludeStyle()) {
+function ExcludeFont() {
+    if (document.URL.indexOf("https://zhuanlan.zhihu.com") === 0)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+if (!ExcludeFullStyle()) {
 
 if (document.URL.indexOf("http://stackoverflow.com") === 0) {
     style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body #content{background-color: " + defaultColor + "!important;} body .tagged-interesting{background-color: " + defaultColor + "!important;}";
@@ -80,7 +89,7 @@ if (document.URL.indexOf("wincode") === 7) {
     mainFont = "Consolas";
 }
 
-document.getElementsByTagName("head")[0].appendChild( style );
+document.getElementsByTagName("head")[0].appendChild(style);
 
 (function() {var css = [
 	"@namespace html url(http://www.w3.org/1999/xhtml);",
@@ -107,7 +116,11 @@ document.getElementsByTagName("head")[0].appendChild( style );
 	"    letter-spacing: -1px;",
 	"}"
 ].join("\n");
-if (typeof GM_addStyle != "undefined") {
+
+if (ExcludeFont()) {
+    // don't do anything
+}
+else if (typeof GM_addStyle != "undefined") {
 	GM_addStyle(css);
 } else if (typeof PRO_addStyle != "undefined") {
 	PRO_addStyle(css);
