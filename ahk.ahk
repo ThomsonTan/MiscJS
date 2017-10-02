@@ -24,5 +24,7 @@ return
 #IfWinActive ahk_exe reSearch v2.exe
 ^d::Send, {F8}
 ^e::Send, {F7}
+^s::Send, {F12}
+^r::Send, {F11}
 
 Return
