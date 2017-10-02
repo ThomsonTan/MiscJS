@@ -1,3 +1,5 @@
+; SetTitleMatchMode RegEx
+
 ToggleScroll = 0;
 #MaxThreadsPerHotkey 2
 #IfWinActive ahk_exe sdvdiff.exe
@@ -15,6 +17,12 @@ return
 #IfWinActive ahk_exe codeflow.exe
 d::Send, {F8}
 ^d::Send, ^{F8}
-e::Send, {F7}
+e::Send, {F7
 ^e::Send, ^{F8}
+return
+
+#IfWinActive ahk_exe reSearch v2.exe
+^d::Send, {F8}
+^e::Send, {F7}
+
 Return
