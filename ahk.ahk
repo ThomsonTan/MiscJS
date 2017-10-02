@@ -18,7 +18,7 @@ return
 d::Send, {F8}
 ^d::Send, ^{F8}
 e::Send, {F7
-^e::Send, ^{F8}
+^e::Send, ^{F7}
 return
 
 #IfWinActive ahk_exe reSearch v2.exe
