@@ -26,5 +26,6 @@ return
 ^e::Send, {F7}
 ^s::Send, {F12}
 ^r::Send, {F11}
+^Space::Send, {Enter}
 
 Return
