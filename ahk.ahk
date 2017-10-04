@@ -26,6 +26,6 @@ return
 ^e::Send, {F7}
 ^s::Send, {F12}
 ^r::Send, {F11}
-^Space::Send, {Enter}
+^Space::Send, {End}{Space}AND{Space}NOT{Space}path:\xbox{Enter}
 
 Return
