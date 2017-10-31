@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name	Green page background
-// @namespace	http://www.TianshengTan.com
+// @name    Green page background
+// @namespace   http://www.TianshengTan.com
 // @description     This script should work for all pages without CSS. version 1.0, and it also set change font for all elements.
-// @match	http://*/*
+// @match   http://*/*
 // @match https://*/*
 // @run-at      document-start
 // ==/UserScript==
@@ -88,52 +88,77 @@ if (document.URL.indexOf("wincode") === 7) {
 document.getElementsByTagName("head")[0].appendChild( style );
 
 (function() {var css = [
-	"@namespace html url(http://www.w3.org/1999/xhtml);",
-	"*",
-	"{",
-	"    font-family: \"" + mainFont + "\", \"Microsoft YaHei\", sans-serif;",
+    "@namespace html url(http://www.w3.org/1999/xhtml);",
+    "*",
+    "{",
+    "    font-family: \"" + mainFont + "\", \"Microsoft YaHei\", sans-serif!important;",
     cssBg ? "background-color: #8ACA9A!important;" : "",
-	"}",
-	"",
-	"h1, h2, h3, h4, h5, h6, h1 *, h2 *, h3 *, h4 *, h5 *, h6 *",
-	"{",
-	"    font-family: \"" + mainFont + "\", \"Roboto\", sans-serif;",
-	"    text-rendering: optimizeLegibility;",
+    "}",
+    "",
+    "h1, h2, h3, h4, h5, h6, h1 *, h2 *, h3 *, h4 *, h5 *, h6 *",
+    "{",
+    "    font-family: \"" + mainFont + "\", \"Roboto\", sans-serif;",
+    "    text-rendering: optimizeLegibility;",
     cssBg ? "background-color: #8ACA9A!important;" : "",
-	"}",
-	"",
-	"h1, h1 *",
-	"{",
-	"    letter-spacing: -2px;",
-	"}",
-	"",
-	"h2, h2 *",
-	"{",
-	"    letter-spacing: -1px;",
-	"}"
+    "}",
+    "",
+    "h1, h1 *",
+    "{",
+    "    letter-spacing: -2px;",
+    "}",
+    "",
+    "h2, h2 *",
+    "{",
+    "    letter-spacing: -1px;",
+    "}"
 ].join("\n");
 
 if (ExcludeFont()) {
     // don't do anything
 }
 else if (typeof GM_addStyle != "undefined") {
-	GM_addStyle(css);
+    GM_addStyle(css);
 } else if (typeof PRO_addStyle != "undefined") {
-	PRO_addStyle(css);
+    PRO_addStyle(css);
 } else if (typeof addStyle != "undefined") {
-	addStyle(css);
+    addStyle(css);
 } else {
-	var node = document.createElement("style");
-	node.type = "text/css";
-	node.appendChild(document.createTextNode(css));
-	var heads = document.getElementsByTagName("head");
-	if (heads.length > 0) {
-		heads[0].appendChild(node);
-	} else {
-		// no head yet, stick it whereever
-		document.documentElement.appendChild(node);
-	}
+    var node = document.createElement("style");
+    node.type = "text/css";
+    node.appendChild(document.createTextNode(css));
+    var heads = document.getElementsByTagName("head");
+    if (heads.length > 0) {
+        heads[0].appendChild(node);
+    } else {
+        // no head yet, stick it whereever
+        document.documentElement.appendChild(node);
+    }
 }
 })();
+}
+if (document.URL.startsWith('https://microsoft.visualstudio.com/DefaultCollection/_git/os/commit')) {
 
+    document.addEventListener('DOMContentLoaded',
+        function addCFLink(){
+            let titleNode = document.getElementsByClassName('inline')[0];
+            if (!titleNode) {
+                setTimeout(addCFLink, 300);
+
+                return;
+            }
+            let titleText = titleNode.innerText;
+            if (titleText && titleText.startsWith("Merged PR")) {
+                let prNum = parseInt(titleText.substr(10));
+                if (Number.isInteger(prNum)){
+                    let newTitle = document.createElement('a');
+                    let linkURL = "codeflow:open?server=https://microsoft.visualstudio.com/DefaultCollection/&project=8d47e068-03c8-4cdc-aa9b-fc6929290322&repo=7bc5fd9f-6098-479a-a87e-1533d288d438&pullRequest=" + prNum;
+
+                    newTitle.innerText = titleText;
+                    newTitle.href=linkURL;
+
+                    titleNode.replaceWith(newTitle);
+                }
+            }
+        }
+    );
 }
