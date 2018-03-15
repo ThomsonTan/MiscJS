@@ -1,7 +1,6 @@
 // Support script for WinDbg disassembly test (with lines in private symbols)
 // .shell -o d:\output.dgml -ci "uf ." cscript.exe /nologo dasm2dgml.js
 // This is inspired from http://blogs.msdn.com/b/reiley/archive/2012/08/19/visualize-assembly-using-dgml.aspx
-// with minor fixes
 var EBB = [];
 
 var hypertext=function(s){
@@ -61,7 +60,8 @@ var map=function(f,v){
     else
     {
         // strip line number at first, assume line number starts with 2 spaces
-        if (origSourceLine.match(/^\s+\d/))
+        // source line # is reserved to be 5 spaces???
+        if (origSourceLine.match(/^\s*\d{1,5}\s/))
         // if (!strSourceLine.match(/^\s*0/))
         {
             strSourceLine = strSourceLine.replace(/\s*\S+\s*/, '');
@@ -81,7 +81,7 @@ var map=function(f,v){
 
         var headAddress = strSourceLine.match(/^\S+/)[0];
         blk.Address = blk.Address || headAddress;
-        var filteredSourceLine = strSourceLine.replace(/^\S+\s+\S+\s+/, '');
+        var filteredSourceLine = strSourceLine.replace(/^\S+\s+\S+\s+/, '');    // remove instr addr and encoding
         filteredSourceLine = filteredSourceLine.replace(/^call\s/, '>call'); // mark call inst
         var tokens = filteredSourceLine.match(/\S+/g);
         var instLen = tokens[0].length;
