@@ -97,6 +97,12 @@ else if (document.URL.indexOf("https://www.safaribooksonline.com") === 0) {
                 window.getSelection().empty(); // cancel selection for highlight
             }
         }
+        else if (keyName === 'a') {
+            let nextLink = document.getElementsByClassName('next nav-link');
+            if (nextLink && nextLink.length > 0) {
+                nextLink[0].click();
+            }
+        }
         });
 }
 else {
