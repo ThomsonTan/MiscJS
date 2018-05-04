@@ -86,24 +86,30 @@ else if (document.URL.indexOf("https://microsoft.sharepoint.com") === 0) {
 else if (document.URL.indexOf("https://www.safaribooksonline.com") === 0) {
     style.innerHTML = "html, body {background-color: " + defaultColor
         + "!important;} body #g{color: blue!important; font-weight: normal!important} #sbo-rt-content pre{backgrond-color: "
-        + defaultColor + "!important; font-weight: normal!important} div.annotator-adder{opacity:0.2}";
+        + defaultColor + "!important; font-weight: normal!important} div.annotator-adder{opacity:0.2} div.annotator-outer{opacity:0.2}";
 
     document.addEventListener('keydown', (event)=>{
         const keyName = event.key;
-        if (keyName === 's') {
-            let hlLink = document.getElementsByClassName('add-highlight');
-            if (hlLink && hlLink.length == 1) {
-                hlLink[0].children[0].click();
-                window.getSelection().empty(); // cancel selection for highlight
-            }
-        }
-        else if (keyName === 'a') {
+        if (keyName === 'a') {
             let nextLink = document.getElementsByClassName('next nav-link');
             if (nextLink && nextLink.length > 0) {
                 nextLink[0].click();
             }
         }
         });
+    document.addEventListener('mouseup', ()=>{
+        let sel = window.getSelection();
+         // don't hight single word which is for translation!
+        if (sel.type === "Range" && sel.toString().trim().includes(' ')) {
+            window.setTimeout(()=>{
+                let hlLink = document.getElementsByClassName('add-highlight');
+                if (hlLink && hlLink.length == 1) {
+                    hlLink[0].children[0].click();
+                    window.getSelection().empty(); // cancel selection for highlight
+                }
+            }, 100);
+        }
+    });
 }
 else {
     style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body #g{color: blue!important; font-weight: normal!important} body #f{color: " + defaultColor + "!important; font-weight: normal!important}";
