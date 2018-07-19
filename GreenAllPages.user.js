@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name	Green page background
-// @namespace	http://www.TianshengTan.com
+// @namespace	http://www.ThomsonTan.com
 // @description     This script should work for all pages without CSS. version 1.0, and it also set change font for all elements.
 // @match	http://*/*
 // @match https://*/*
