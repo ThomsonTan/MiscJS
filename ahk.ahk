@@ -28,5 +28,9 @@ return
 ^r::Send, {F11}
 ^Space::Send, {Space}{End}^v{Space}AND{Space}NOT{Space}path:\xbox{Enter}
 !d::Send, !u
+return
+
+#IfWinActive ahk_exe devenv.exe
+^d::Send, ^-
 
 Return
