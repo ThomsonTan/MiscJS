@@ -19,6 +19,9 @@ ToggleNavCF = 0; ;cannot set it = 1?
 ^s::
 ToggleNavCF := !ToggleNavCF
 return
+; Seems a ctrl is injected for below mapping?
+!e::Send, !{F4}
+return
 d::
 if ToggleNavCF {
     Send, d
@@ -48,7 +51,7 @@ if ToggleNavCF {
 }
 return
 
-#IfWinActive ahk_exe reSearch v2.exe
+#IfWinActive ahk_exe reSearch.exe
 ^d::Send, {F8}
 ^e::Send, {F7}
 ^s::Send, {F12}
