@@ -50,7 +50,7 @@ else if (document.URL.indexOf("https://vi.stackexchange.com") === 0) {
     style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body #content{background-color: " + defaultColor + "!important;} body .container{background-color: " + defaultColor + "!important;}";
 }
 else if (document.URL.indexOf("https://mail.google.com") === 0) {
-    style.innerHTML = "html, body .Bu{background-color: " + defaultColor + "!important;line-height: 1.1em;font-size:30px;font-family: verdana,serif;} body .hP{background-color: yellow} h3{background-color: gray}";
+    style.innerHTML = "html, body .Bu{background-color: " + defaultColor + "!important;line-height: 1.2em;font-size:28px;font-family: verdana,serif;} body .hP{background-color: yellow} h3{background-color: gray}";
 }
 else if (document.URL.indexOf("https://www.evernote.com") === 0) {
     style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body div.GAOIOH2DIGB{background: #9ACA9A;}";
@@ -88,6 +88,8 @@ else if (document.URL.indexOf("https://www.safaribooksonline.com") === 0) {
         + "!important;} body #g{color: blue!important; font-weight: normal!important} #sbo-rt-content pre{backgrond-color: "
         + defaultColor + "!important; font-weight: normal!important} div.annotator-adder{opacity:0.2} div.annotator-outer{opacity:0.2}";
 
+    window.setTimeout(()=>{document.querySelector('.t-topbar').remove();}, 500);
+
     document.addEventListener('keydown', (event)=>{
         const keyName = event.key;
         if (keyName === 'a') {
@@ -111,7 +113,47 @@ else if (document.URL.indexOf("https://www.safaribooksonline.com") === 0) {
         }
     });
 }
-else {
+else if (window.location.href.startsWith('http://infocenter.arm.com/help/index.jsp?'))
+{
+    // redirect arm doc to advanced page to avoid the ugly frame
+    let currURL = window.location.href;
+    let newURL = currURL.replace('http://infocenter.arm.com/help/index.jsp', 'http://infocenter.arm.com/help/advanced/help.jsp');
+    window.location.href = newURL;
+}
+else if (window.location.href.startsWith('http://infocenter.arm.com/help/advanced/help.jsp?'))
+{
+    let retryCount = 1000; // give 100 * 100 = 10 seconds as total load time
+    +function deleteSuper(){
+        let a = document.getElementsByClassName('content');
+        if (a && a.length == 1 && a[0].contentDocument && a[0].contentDocument.body) {
+            let b = a[0].contentDocument.body.children;
+            if (b && b.length > 2) {
+                let c = b[1].contentDocument;
+                if (c && c.styleSheets && c.styleSheets.length > 1 && c.styleSheets[0].rules.length == 2) {
+                    c.styleSheets[0].deleteRule(1);
+                    retryCount = 0;
+                }
+            }
+        }
+
+        if (--retryCount > 0) {
+            window.setTimeout(deleteSuper, 100);
+        }
+    }();
+}
+else if (document.URL.indexOf('https://weibo.com/u/3913659795') === 0) {
+    let weiboInFocus = true; // no fresh at begining
+    window.onblur = function(){weiboInFocus = false;};
+    window.onfocus = function(){weiboInFocus = true;document.getElementsByClassName('W_input')[1].focus();};
+
+
+    +function refreshWeibo(){
+        window.setTimeout(refreshWeibo, 300 * 1000);
+        if (!weiboInFocus){window.location.reload();};
+    }();
+}
+
+if (!style.innerHTML){
     style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body #g{color: blue!important; font-weight: normal!important} body #f{color: " + defaultColor + "!important; font-weight: normal!important}";
 }
 
