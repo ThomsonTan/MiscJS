@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name	Green page background
-// @namespace	http://www.ThomsonTan.com
+// @namespace	http://www.TianshengTan.com
 // @description     This script should work for all pages without CSS. version 1.0, and it also set change font for all elements.
 // @match	http://*/*
 // @match https://*/*
@@ -47,10 +47,15 @@ if (document.URL.indexOf("https://stackoverflow.com") === 0) {
     style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body #content{background-color: " + defaultColor + "!important;} body .tagged-interesting{background-color: " + defaultColor + "!important;}";
 }
 else if (document.URL.indexOf("https://vi.stackexchange.com") === 0) {
-    style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body #content{background-color: " + defaultColor + "!important;} body .container{background-color: " + defaultColor + "!important;}";
+    style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body #content{background-color: " + defaultColor +
+        "!important;} body .container{background-color: " + defaultColor +
+        "!important;}";
 }
 else if (document.URL.indexOf("https://mail.google.com") === 0) {
-    style.innerHTML = "html, body .Bu{background-color: " + defaultColor + "!important;line-height: 1.2em;font-size:28px;font-family: verdana,serif;} body .hP{background-color: yellow} h3{background-color: gray}";
+    style.innerHTML = "html, body .Bu{background-color: " + defaultColor +
+        "!important;line-height: 1.2em;font-size:28px;font-family: verdana,serif;} " +
+        "body .hP{background-color: yellow} h3{background-color: gray}" +
+        "body .a3s{font: 28px " + mainFont + ",Microsoft YaHei, sans-serif!important;";
 }
 else if (document.URL.indexOf("https://www.evernote.com") === 0) {
     style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body div.GAOIOH2DIGB{background: #9ACA9A;}";
@@ -210,7 +215,7 @@ document.getElementsByTagName("head")[0].appendChild( style );
 	"*",
 	"{",
 	"    font-family: \"" + mainFont + "\", \"Microsoft YaHei\", sans-serif!important;",
-    cssBg ? "background-color: "  + defaultColor + "!important;" : "",
+    cssBg ? "background-color: " + defaultColor + "!important;" : "",
 	"}",
 	"",
 	"h1, h2, h3, h4, h5, h6, h1 *, h2 *, h3 *, h4 *, h5 *, h6 *",
@@ -280,4 +285,5 @@ if (document.URL.startsWith('https://microsoft.visualstudio.com/DefaultCollectio
         }
     );
 }
+
 
