@@ -88,7 +88,8 @@ else if (document.URL.indexOf("https://microsoft.sharepoint.com") === 0) {
     style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body div.WACInteractiveView{background-color: " + defaultColor + "!important;}";
     cssBg = true;
 }
-else if (document.URL.indexOf("https://www.safaribooksonline.com") === 0) {
+else if (document.URL.indexOf("https://www.safaribooksonline.com") === 0 ||
+         document.URL.indexOf("https://learning.oreilly.com/library/view") === 0) {
     style.innerHTML = "html, body {background-color: " + defaultColor
         + "!important;} body #g{color: blue!important; font-weight: normal!important} #sbo-rt-content pre{backgrond-color: "
         + defaultColor + "!important; font-weight: normal!important} div.annotator-adder{opacity:0.2} div.annotator-outer{opacity:0.2}";
