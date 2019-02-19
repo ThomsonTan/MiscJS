@@ -205,7 +205,8 @@ else if (document.URL.startsWith('https://www.eventbrite.com/register')) {
 
 if(document.URL.indexOf("https://reviews.llvm.org") === 0 ||
    document.URL.indexOf("wincode") === 7 ||
-   document.URL.indexOf("http://llvm.org/doxygen/") === 0) {
+   document.URL.indexOf("http://llvm.org/doxygen/") === 0 ||
+   document.URL.indexOf("https://github.com/") === 0) {
     mainFont = "Consolas";
 }
 
