@@ -29,7 +29,8 @@ var mainFont = "Open Sans";
 var cssBg = false;
 
 function ExcludeFullStyle() {
-    if (document.URL.indexOf("https://microsoft.visualstudio.com") === 0)
+    if (document.URL.indexOf("https://microsoft.visualstudio.com") === 0 ||
+        document.URL.indexOf("https://www.codewars.com/kata") === 0)
     {
         return true;
     }
