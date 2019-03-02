@@ -30,7 +30,8 @@ var cssBg = false;
 
 function ExcludeFullStyle() {
     if (document.URL.indexOf("https://microsoft.visualstudio.com") === 0 ||
-        document.URL.indexOf("https://www.codewars.com/kata") === 0)
+        document.URL.indexOf("https://www.codewars.com") === 0 ||
+        document.URL.indexOf("https://play.rust-lang.org") === 0)
     {
         return true;
     }
