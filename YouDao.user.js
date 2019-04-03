@@ -23,7 +23,7 @@ function processWord(word) {
 
     if (word.indexOf(' ') !== -1) return null;
 
-    if (word.match(/^[a-zA-Z]+$/) === null) return null;
+    if (word.match(/^[A-Za-z][a-z]*$/) === null) return null;
 
     return word;
 }
