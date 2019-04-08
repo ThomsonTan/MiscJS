@@ -160,6 +160,9 @@ else if (document.URL.indexOf('https://weibo.com/u/3913659795') === 0) {
         if (!weiboInFocus){window.location.reload();};
     }();
 }
+else if (document.URL.indexOf('http://dict.youdao.com/w/') === 0) {
+    defaultColor = '#D8D5DF';
+}
 
 if (!style.innerHTML){
     style.innerHTML = "html, body {background-color: " + defaultColor + "!important;} body #g{color: blue!important; font-weight: normal!important} body #f{color: " + defaultColor + "!important; font-weight: normal!important}";
@@ -289,5 +292,3 @@ if (document.URL.startsWith('https://microsoft.visualstudio.com/DefaultCollectio
         }
     );
 }
-
-
