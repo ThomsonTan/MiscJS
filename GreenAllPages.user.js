@@ -162,6 +162,11 @@ else if (document.URL.indexOf('https://weibo.com/u/3913659795') === 0) {
 }
 else if (document.URL.indexOf('http://dict.youdao.com/w/') === 0) {
     defaultColor = '#D8D5DF';
+    +function removeAdNode() {
+        let adNode = document.querySelector('#topImgAd');
+        if (adNode) adNode.remove();
+        else window.setTimeout(removeAdNode, 100);
+    }();
 }
 
 if (!style.innerHTML){
