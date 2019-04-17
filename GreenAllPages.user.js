@@ -109,8 +109,14 @@ else if (document.URL.indexOf("https://www.safaribooksonline.com") === 0 ||
         });
     document.addEventListener('mouseup', ()=>{
         let sel = window.getSelection();
+        let note = sel.toString().trim();
          // don't hight single word which is for translation!
-        if (sel.type === "Range" && sel.toString().trim().includes(' ')) {
+        if (sel.type === "Range" && note.includes(' ')) {
+            if (!document.smart_notes) {
+                document.smart_notes = [];
+            }
+            document.smart_notes.push(note);
+            console.log(window.smart_notes);
             window.setTimeout(()=>{
                 let hlLink = document.getElementsByClassName('add-highlight');
                 if (hlLink && hlLink.length == 1) {
