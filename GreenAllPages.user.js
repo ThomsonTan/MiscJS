@@ -116,7 +116,6 @@ else if (document.URL.indexOf("https://www.safaribooksonline.com") === 0 ||
                 document.smart_notes = [];
             }
             document.smart_notes.push(note);
-            console.log(window.smart_notes);
             window.setTimeout(()=>{
                 let hlLink = document.getElementsByClassName('add-highlight');
                 if (hlLink && hlLink.length == 1) {
