@@ -178,7 +178,7 @@ else if (document.URL.indexOf('http://dict.youdao.com') === 0) {
 
     let removeCounter = 0;
 
-    if (document.URL.indexOf('http://dict.youdao.com/w/') === 0) {
+    if (document.URL.indexOf('http://dict.youdao.com/wordbook/') !== 0) {
         function removeGivenNode(queryStr) {
             let adNode = document.querySelector(queryStr);
             if (adNode) {
