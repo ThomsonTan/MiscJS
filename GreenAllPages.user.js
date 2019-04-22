@@ -188,31 +188,34 @@ else if (document.URL.indexOf('http://dict.youdao.com') === 0) {
         }
 
         +function removeExtraNodes() {
-
-            adNodeRemoved = adNodeRemoved || removeGivenNode('#topImgAd');
-            adsNodeRemoved = adsNodeRemoved || removeGivenNode('#ads');
-            authTransRemoved = authTransRemoved || removeGivenNode('#authTrans');
-            resultNavRemoved = resultNavRemoved || removeGivenNode('#result_navigator');
-            originalSoundRemoved = originalSoundRemoved || removeGivenNode('#originalSound');
-            authorityNodeRemoved = authorityNodeRemoved || removeGivenNode('#authority');
-
-            let phrsListTabNode = document.querySelector('#phrsListTab');
             let addToWordList = document.querySelector('#wordbook');
-            if (phrsListTabNode && addToWordList) {
-                let examplesNode = document.querySelector('#examples');
-                if (examplesNode) {
-                    phrsListTabNode.parentNode.insertBefore(examplesNode, phrsListTabNode.nextSibling);
-                }
 
-                let eTransformNode = document.querySelector('#eTransform');
-                if (eTransformNode) {
+            if (addToWordList) {
+                adNodeRemoved = adNodeRemoved || removeGivenNode('#topImgAd');
+                adsNodeRemoved = adsNodeRemoved || removeGivenNode('#ads');
+                authTransRemoved = authTransRemoved || removeGivenNode('#authTrans');
+                resultNavRemoved = resultNavRemoved || removeGivenNode('#result_navigator');
+                originalSoundRemoved = originalSoundRemoved || removeGivenNode('#originalSound');
+                authorityNodeRemoved = authorityNodeRemoved || removeGivenNode('#authority');
+
+                let phrsListTabNode = document.querySelector('#phrsListTab');
+
+                if (phrsListTabNode) {
+                    let examplesNode = document.querySelector('#examples');
                     if (examplesNode) {
-                        examplesNode = document.querySelector('#examples');
-                        phrsListTabNode.parentNode.insertBefore(eTransformNode, examplesNode.nextSibling);
-                    } else {
-                        phrsListTabNode.parentNode.insertBefore(eTransformNode, phrsListTabNode.nextSibling);
+                        phrsListTabNode.parentNode.insertBefore(examplesNode, phrsListTabNode.nextSibling);
                     }
-                    adjustedDictOrder = true;
+
+                    let eTransformNode = document.querySelector('#eTransform');
+                    if (eTransformNode) {
+                        if (examplesNode) {
+                            examplesNode = document.querySelector('#examples');
+                            phrsListTabNode.parentNode.insertBefore(eTransformNode, examplesNode.nextSibling);
+                        } else {
+                            phrsListTabNode.parentNode.insertBefore(eTransformNode, phrsListTabNode.nextSibling);
+                        }
+                        adjustedDictOrder = true;
+                    }
                 }
             }
 
