@@ -197,7 +197,8 @@ else if (document.URL.indexOf('http://dict.youdao.com') === 0) {
             authorityNodeRemoved = authorityNodeRemoved || removeGivenNode('#authority');
 
             let phrsListTabNode = document.querySelector('#phrsListTab');
-            if (phrsListTabNode) {
+            let addToWordList = document.querySelector('#wordbook');
+            if (phrsListTabNode && addToWordList) {
                 let examplesNode = document.querySelector('#examples');
                 if (examplesNode) {
                     phrsListTabNode.parentNode.insertBefore(examplesNode, phrsListTabNode.nextSibling);
@@ -207,9 +208,9 @@ else if (document.URL.indexOf('http://dict.youdao.com') === 0) {
                 if (eTransformNode) {
                     if (examplesNode) {
                         examplesNode = document.querySelector('#examples');
-                        phrsListTabNode.parentNode.insertAfter(eTransformNode, examplesNode.nextSibling);
+                        phrsListTabNode.parentNode.insertBefore(eTransformNode, examplesNode.nextSibling);
                     } else {
-                        phrsListTabNode.parentNode.insertAfter(eTransformNode, phrsListTabNode.nextSibling);
+                        phrsListTabNode.parentNode.insertBefore(eTransformNode, phrsListTabNode.nextSibling);
                     }
                     adjustedDictOrder = true;
                 }
