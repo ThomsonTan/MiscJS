@@ -167,11 +167,32 @@ else if (document.URL.indexOf('https://weibo.com/u/3913659795') === 0) {
 }
 else if (document.URL.indexOf('http://dict.youdao.com') === 0) {
     defaultColor = '#D8D5DF';
-    +function removeAdNode() {
-        let adNode = document.querySelector('#topImgAd');
-        if (adNode) adNode.remove();
-        else window.setTimeout(removeAdNode, 100);
-    }();
+    let adNodeRemoved = false;
+    let adsNodeRemoved = false;
+    let authTransRemoved = false;
+    let resultNavRemoved = false;
+
+    if (document.URL.indexOf('http://dict.youdao.com/w/eng') === 0) {
+        function removeGivenNode(queryStr) {
+            let adNode = document.querySelector(queryStr);
+            if (adNode) {
+                adNode.remove();
+            }
+            return adNode !== null;
+        }
+
+        +function removeExtraNodes() {
+
+            adNodeRemoved = adNodeRemoved || removeGivenNode('#topImgAd');
+            adsNodeRemoved = adsNodeRemoved || removeGivenNode('#ads');
+            authTransRemoved = authTransRemoved || removeGivenNode('#authTrans');
+            resultNavRemoved = resultNavRemoved || removeGivenNode('#result_navigator');
+
+            if (!(adNodeRemoved && adsNodeRemoved && authTransRemoved && resultNavRemoved)) {
+                window.setTimeout(removeExtraNodes, 100);
+            }
+        }();
+    }
 }
 
 if (!style.innerHTML){
