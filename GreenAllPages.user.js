@@ -171,8 +171,14 @@ else if (document.URL.indexOf('http://dict.youdao.com') === 0) {
     let adsNodeRemoved = false;
     let authTransRemoved = false;
     let resultNavRemoved = false;
+    let originalSoundRemoved = false;
+    let authorityNodeRemoved = false;
 
-    if (document.URL.indexOf('http://dict.youdao.com/w/eng') === 0) {
+    let adjustedDictOrder =false;
+
+    let removeCounter = 0;
+
+    if (document.URL.indexOf('http://dict.youdao.com/w/') === 0) {
         function removeGivenNode(queryStr) {
             let adNode = document.querySelector(queryStr);
             if (adNode) {
@@ -187,8 +193,31 @@ else if (document.URL.indexOf('http://dict.youdao.com') === 0) {
             adsNodeRemoved = adsNodeRemoved || removeGivenNode('#ads');
             authTransRemoved = authTransRemoved || removeGivenNode('#authTrans');
             resultNavRemoved = resultNavRemoved || removeGivenNode('#result_navigator');
+            originalSoundRemoved = originalSoundRemoved || removeGivenNode('#originalSound');
+            authorityNodeRemoved = authorityNodeRemoved || removeGivenNode('#authority');
 
-            if (!(adNodeRemoved && adsNodeRemoved && authTransRemoved && resultNavRemoved)) {
+            let phrsListTabNode = document.querySelector('#phrsListTab');
+            if (phrsListTabNode) {
+                let examplesNode = document.querySelector('#examples');
+                if (examplesNode) {
+                    phrsListTabNode.parentNode.insertBefore(examplesNode, phrsListTabNode.nextSibling);
+                }
+
+                let eTransformNode = document.querySelector('#eTransform');
+                if (eTransformNode) {
+                    if (examplesNode) {
+                        examplesNode = document.querySelector('#examples');
+                        phrsListTabNode.parentNode.insertAfter(eTransformNode, examplesNode.nextSibling);
+                    } else {
+                        phrsListTabNode.parentNode.insertAfter(eTransformNode, phrsListTabNode.nextSibling);
+                    }
+                    adjustedDictOrder = true;
+                }
+            }
+
+            if (!(adNodeRemoved && adsNodeRemoved && authTransRemoved && resultNavRemoved && originalSoundRemoved &&
+                  authorityNodeRemoved && adjustedDictOrder) &&
+                removeCounter++ < 100) {
                 window.setTimeout(removeExtraNodes, 100);
             }
         }();
