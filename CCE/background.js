@@ -21,6 +21,13 @@ chrome.contextMenus.create({
                     {currentWindow: true, active: true}, 
                     function(tab) {
                         chrome.tabs.update(tab.id, {url:newUrl});
+                        if (typeof(tab[0].url) === 'string') {
+                            let currentPageUrl = tab[0].url;
+                            let currentPageUrlMatch = currentPageUrl.match(prUrlRe);
+                            if (currentPageUrlMatch && currentPageUrlMatch.length === 1) {
+                                window.setTimeout(function() {chrome.tabs.remove(tab[0].id, function(){});}, 8000);
+                            }
+                        }
                     }
                 );
             }
