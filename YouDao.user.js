@@ -25,7 +25,7 @@ function processWord(word) {
 
     if (word.match(/^[A-Za-z][a-z]*$/) === null) return null;
 
-    return word;
+    return word.toLowerCase();
 }
 
 function addWord(origWord) {
